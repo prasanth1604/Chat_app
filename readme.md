@@ -19,12 +19,6 @@ A lightweight **real-time topic-based chat server** built with **FastAPI** and *
 
 * Dependencies listed in `requirements.txt`:
 
-  ```bash
-  fastapi==0.115.0
-  uvicorn==0.30.1
-  websockets==12.0
-  ```
-
 Install all dependencies:
 
 ```bash
