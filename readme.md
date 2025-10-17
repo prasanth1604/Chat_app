@@ -11,7 +11,6 @@ A lightweight **real-time topic-based chat server** built with **FastAPI** and *
 * Broadcast messages to all users in the same topic
 * Message expiry after 30 seconds (in-memory only)
 * `/list` command to view active topics and user counts
-* Graceful session cleanup and error handling
 
 ---
 
