@@ -1,4 +1,4 @@
-# FastAPI WebSocket Topic Chat
+# Real-Time WebSocket Chat Server with Topic Rooms
 
 A lightweight **real-time topic-based chat server** built with **FastAPI** and **WebSockets**. Messages auto-expire after 30 seconds, and topics are removed when all users leave.
 
