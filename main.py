@@ -10,8 +10,6 @@ from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
-# In-memory state
-# topics: topic_name -> dict(username -> WebSocket)
 topics: Dict[str, Dict[str, WebSocket]] = {}
 # topic_messages: topic_name -> list of message dicts (kept for up to 30s)
 topic_messages: Dict[str, List[dict]] = {}
@@ -42,7 +40,6 @@ async def broadcast_to_topic(topic: str, payload: dict, exclude_username: str = 
     async with state_lock:
         users = topics.get(topic, {}).items()
         websockets = [(u, ws) for u, ws in users if u != exclude_username]
-    # send without holding lock
     text = json.dumps(payload)
     for username, ws in websockets:
         try:
@@ -100,8 +97,6 @@ async def websocket_endpoint(websocket: WebSocket):
 
         logger.info("User connected: %s in topic %s", username, topic)
 
-        # Notify (optional) — we won't broadcast join messages to meet requirements, but could be added.
-
         # Listen loop
         while True:
             try:
@@ -113,9 +108,6 @@ async def websocket_endpoint(websocket: WebSocket):
                 logger.error("Receive error from %s: %s", username, e)
                 break
 
-            # Handle commands or messages
-            # Try parse as JSON message payload. If invalid, send an error but continue.
-            # Special case: /list command as plain text string
             if text.strip() == "/list":
                 # respond only to this user with active topics and counts
                 async with state_lock:
